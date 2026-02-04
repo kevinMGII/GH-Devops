@@ -1,0 +1,165 @@
+/* Modern, glassmorphism calculator styles */
+/* Import a clean font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root{
+  --bg-1: #0f1724;      /* deep navy */
+  --bg-2: #0b1220;      /* near black */
+  --glass: rgba(255,255,255,0.06);
+  --glass-2: rgba(255,255,255,0.04);
+  --accent-1: #7c5cff;  /* violet */
+  --accent-2: #00d4ff;  /* cyan */
+  --accent-glow: 0 8px 30px rgba(124,92,255,0.18);
+  --muted: rgba(255,255,255,0.6);
+  --white: #ffffff;
+  --success: #33d69f;
+  --danger: #ff6b6b;
+  --glass-border: rgba(255,255,255,0.08);
+  --radius: 16px;
+}
+
+* { box-sizing: border-box; }
+html,body{
+  height:100%;
+  margin:0;
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(124,92,255,0.07), transparent 8%),
+              radial-gradient(900px 400px at 90% 90%, rgba(0,212,255,0.04), transparent 10%),
+              linear-gradient(180deg, var(--bg-1), var(--bg-2));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px;
+  color:var(--white);
+}
+
+/* Container */
+.calculator{
+  width: min(420px, 96vw);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: 0 10px 40px rgba(2,6,23,0.6), var(--accent-glow);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  transform: translateY(-6px);
+  transition: transform .28s cubic-bezier(.2,.9,.2,1);
+}
+.calculator:hover{ transform: translateY(0); }
+
+/* Display */
+#display{
+  width:100%;
+  height:84px;
+  border-radius: 12px;
+  margin-bottom:18px;
+  padding: 18px;
+  padding-right:16px;
+  font-size:28px;
+  font-weight:700;
+  text-align:right;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  color:var(--white);
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: inset 0 -6px 24px rgba(2,6,23,0.35);
+  outline: none;
+}
+
+/* Keys grid */
+.keys{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  align-items:stretch;
+}
+
+/* Buttons base */
+.keys button{
+  appearance:none;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.04);
+  color: var(--white);
+  padding: 18px;
+  font-size: 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.45);
+  font-weight:600;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  user-select:none;
+}
+
+/* Value keys */
+.keys button[data-value]{
+  background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+}
+
+/* Operator keys */
+.keys button[data-op]{
+  background: linear-gradient(180deg, rgba(124,92,255,0.18), rgba(0,212,255,0.06));
+  border: 1px solid rgba(124,92,255,0.28);
+  color: #ffffff;
+  box-shadow: 0 8px 30px rgba(124,92,255,0.12);
+}
+
+/* Clear button */
+#clear{
+  background: linear-gradient(180deg, rgba(255,107,107,0.16), rgba(255,107,107,0.06));
+  border: 1px solid rgba(255,107,107,0.18);
+  color: var(--white);
+  font-weight:700;
+}
+
+/* Equals button spans full width (handled inline in html via style) */
+#equals{
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  border: none;
+  color: white;
+  box-shadow: 0 12px 40px rgba(0,212,255,0.12);
+  font-size:20px;
+  grid-column: 1 / -1;
+  padding: 16px;
+}
+
+/* Hover & active states */
+.keys button:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(2,6,23,0.55);
+}
+
+.keys button:active{
+  transform: translateY(-2px) scale(0.997);
+  box-shadow: 0 8px 22px rgba(2,6,23,0.45);
+}
+
+/* Small screens */
+@media (max-width:420px){
+  #display{ height:72px; font-size:24px; padding:14px; }
+  .keys button{ padding:14px; font-size:16px; }
+}
+
+/* Subtle decorative footer (optional) */
+.calculator:after{
+  content: "";
+  display:block;
+  height:6px;
+  margin-top:14px;
+  border-radius:999px;
+  background: linear-gradient(90deg, rgba(124,92,255,0.18), rgba(0,212,255,0.12));
+  opacity:0.6;
+}
+
+/* Focus styles for accessibility */
+.keys button:focus{
+  outline: 3px solid rgba(124,92,255,0.14);
+  outline-offset: 3px;
+}
+
+/* Extra: small label above display (if you want) */
+/* .calculator .title{ font-size:12px; color:var(--muted); margin-bottom:8px; text-transform:uppercase; letter-spacing:1px; } */
